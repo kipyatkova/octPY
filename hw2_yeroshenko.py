@@ -29,8 +29,13 @@ def eval_expression():
     """
     code = validate_input()
     if code is not None:
-        result = eval(code, {"__builtins__": {}}, allowed_names)
-        lbl_display_result["text"] = f"{result}"
+        try:
+            result = eval(code, {"__builtins__": {}}, allowed_names)
+            lbl_display_result["text"] = f"{result}"
+        except ZeroDivisionError:
+            lbl_display_result["text"] = "Cannot be divided by zero"
+        except Exception:
+            lbl_display_result["text"] = "Unknown error during calculation"
 
 
 allowed_names = {'pi': 3.14, 'e': 2.71}
